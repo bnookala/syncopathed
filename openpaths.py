@@ -41,11 +41,9 @@ def get_points(start_time=None, end_time=None, num_points=2000):
 		params['num_points'] = num_points
 
 	query = "%s?%s" % (API_BASE_PATH, urllib.urlencode(params))
-	try:
-		request = urllib2.Request(query)
-		request.headers = build_auth_header(API_BASE_PATH, 'GET')
-		connection = urllib2.urlopen(request)
-		data = json.loads(''.join(connection.readlines()))
-		print(json.dumps(data, indent=4))
-	except urllib2.HTTPError as e:
-		print(e.read()) 
+
+	request = urllib2.Request(query)
+	request.headers = build_auth_header(API_BASE_PATH, 'GET')
+	connection = urllib2.urlopen(request)
+	data = json.loads(''.join(connection.readlines()))
+	return data
